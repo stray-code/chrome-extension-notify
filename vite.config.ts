@@ -12,6 +12,13 @@ const manifest = defineManifest({
     48: "img/icon48.png",
     128: "img/icon128.png",
   },
+  action: {},
+  background: {
+    service_worker: "src/background.ts",
+    type: "module",
+  },
+  options_page: "src/options/index.html",
+  permissions: ["storage", "notifications", "alarms"],
 });
 
 // https://vitejs.dev/config/
