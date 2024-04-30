@@ -1,7 +1,7 @@
 import { LocalStorageItems } from "../types";
 
-type Return<T> = T extends "scheduleList"
-  ? LocalStorageItems["scheduleList"]
+type Return<T> = T extends "mainScheduleList"
+  ? LocalStorageItems["mainScheduleList"]
   : never;
 
 export const getLocalStorage = async <T extends keyof LocalStorageItems>(

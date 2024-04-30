@@ -9,7 +9,7 @@ export const App = () => {
   const [mainScheduleList, setMainScheduleList] = useState<MainSchedule[]>([]);
 
   const getScheduleList = async () => {
-    const mainScheduleList = await getLocalStorage("scheduleList");
+    const mainScheduleList = await getLocalStorage("mainScheduleList");
 
     if (!mainScheduleList) {
       return;
@@ -19,7 +19,7 @@ export const App = () => {
   };
 
   const update = async (values: MainSchedule[]) => {
-    setLocalStorage("scheduleList", values);
+    setLocalStorage("mainScheduleList", values);
 
     chrome.runtime.sendMessage({ type: "UPDATE_ALARM" });
 

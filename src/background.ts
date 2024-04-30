@@ -9,7 +9,7 @@ chrome.action.onClicked.addListener(() => {
 let nextSchedule: Schedule & { time: number };
 
 const createAlarm = async () => {
-  const mainScheduleList = await getLocalStorage("scheduleList");
+  const mainScheduleList = await getLocalStorage("mainScheduleList");
 
   if (!mainScheduleList || mainScheduleList.length === 0) {
     return;
