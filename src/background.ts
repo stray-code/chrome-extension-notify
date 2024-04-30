@@ -1,6 +1,6 @@
-import { calcTimeScheduleList } from "./utils";
+import { calcTimeScheduleList, getLocalStorage } from "./utils";
 
-import type { MainSchedule, Schedule } from "./types";
+import type { Schedule } from "./types";
 
 chrome.action.onClicked.addListener(() => {
   chrome.runtime.openOptionsPage();
@@ -9,40 +9,34 @@ chrome.action.onClicked.addListener(() => {
 let nextSchedule: Schedule & { time: number };
 
 const createAlarm = async () => {
-  chrome.storage.local.get("SCHEDULE_LIST", async (value) => {
-    if (!value.SCHEDULE_LIST) {
-      return;
-    }
+  const mainScheduleList = await getLocalStorage("scheduleList");
 
-    const mainScheduleList = value.SCHEDULE_LIST as MainSchedule[];
+  if (!mainScheduleList || mainScheduleList.length === 0) {
+    return;
+  }
 
-    if (mainScheduleList.length === 0) {
-      return;
-    }
-
-    const scheduleList: Schedule[] = mainScheduleList.flatMap((schedule) => {
-      return schedule.daysOfWeek.map((day) => {
-        return {
-          day: +day,
-          hours: +schedule.hours,
-          minutes: +schedule.minutes,
-          title: schedule.title,
-          message: schedule.message,
-        };
-      });
+  const scheduleList: Schedule[] = mainScheduleList.flatMap((schedule) => {
+    return schedule.daysOfWeek.map((day) => {
+      return {
+        day: +day,
+        hours: +schedule.hours,
+        minutes: +schedule.minutes,
+        title: schedule.title,
+        message: schedule.message,
+      };
     });
+  });
 
-    const hasTimeScheduleList = calcTimeScheduleList(scheduleList);
+  const hasTimeScheduleList = calcTimeScheduleList(scheduleList);
 
-    const sortedScheduleList = hasTimeScheduleList.toSorted(
-      (a, b) => a.time - b.time,
-    );
+  const sortedScheduleList = hasTimeScheduleList.toSorted(
+    (a, b) => a.time - b.time,
+  );
 
-    nextSchedule = sortedScheduleList[0];
+  nextSchedule = sortedScheduleList[0];
 
-    await chrome.alarms.create("createNotifications", {
-      when: nextSchedule.time,
-    });
+  await chrome.alarms.create("createNotifications", {
+    when: nextSchedule.time,
   });
 };
 

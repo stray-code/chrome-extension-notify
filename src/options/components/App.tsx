@@ -3,28 +3,31 @@ import { Container, Stack, Paper, Title, Text } from "@mantine/core";
 
 import { MainSchedule } from "../../types";
 import { AddButton, ScheduleTable } from ".";
+import { getLocalStorage, setLocalStorage } from "../../utils";
 
 export const App = () => {
   const [mainScheduleList, setMainScheduleList] = useState<MainSchedule[]>([]);
 
-  const getLocalStorage = () => {
-    chrome.storage.local.get("SCHEDULE_LIST", (value) => {
-      if (!value.SCHEDULE_LIST) {
-        return;
-      }
+  const getScheduleList = async () => {
+    const mainScheduleList = await getLocalStorage("scheduleList");
 
-      setMainScheduleList(value.SCHEDULE_LIST);
-    });
+    if (!mainScheduleList) {
+      return;
+    }
+
+    setMainScheduleList(mainScheduleList);
   };
 
   const update = async (values: MainSchedule[]) => {
-    chrome.storage.local.set({ SCHEDULE_LIST: values }),
-      chrome.runtime.sendMessage({ type: "UPDATE_ALARM" });
-    getLocalStorage();
+    setLocalStorage("scheduleList", values);
+
+    chrome.runtime.sendMessage({ type: "UPDATE_ALARM" });
+
+    getScheduleList();
   };
 
   useEffect(() => {
-    getLocalStorage();
+    getScheduleList();
   }, []);
 
   return (
