@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Container, Stack, Paper, Title, Text } from "@mantine/core";
 
-import { MainSchedule } from "../../types";
+import { MainSchedule, Message } from "../../types";
 import { AddButton, ScheduleTable } from ".";
 import { getLocalStorage, setLocalStorage } from "../../utils";
 
@@ -21,7 +21,7 @@ export const App = () => {
   const update = async (values: MainSchedule[]) => {
     setLocalStorage("mainScheduleList", values);
 
-    chrome.runtime.sendMessage({ type: "UPDATE_ALARM" });
+    chrome.runtime.sendMessage<Message>({ type: "updateAlarm" });
 
     getScheduleList();
   };

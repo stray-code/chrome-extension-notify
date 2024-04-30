@@ -1,6 +1,6 @@
 import { calcTimeScheduleList, getLocalStorage } from "./utils";
 
-import type { Schedule } from "./types";
+import type { Message, Schedule } from "./types";
 
 chrome.action.onClicked.addListener(() => {
   chrome.runtime.openOptionsPage();
@@ -54,8 +54,8 @@ chrome.alarms.onAlarm.addListener((alarm) => {
   }
 });
 
-chrome.runtime.onMessage.addListener(async (message) => {
-  if (message.type === "UPDATE_ALARM") {
+chrome.runtime.onMessage.addListener(async (message: Message) => {
+  if (message.type === "updateAlarm") {
     await chrome.alarms.clearAll();
     createAlarm();
   }
