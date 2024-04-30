@@ -10,7 +10,8 @@
     "lint:fix": "eslint --fix . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "format": "prettier -w src/",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test": "vitest run"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -42,6 +43,7 @@
     "lint-staged": "^15.2.2",
     "prettier": "^3.2.5",
     "typescript": "^5.2.2",
-    "vite": "^5.2.0"
+    "vite": "^5.2.0",
+    "vitest": "^1.5.3"
   }
 }
