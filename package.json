@@ -14,8 +14,8 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "npm run format",
-      "npm run lint:fix"
+      "bash -c \"npm run format\"",
+      "bash -c \"npm run lint:fix\""
     ]
   },
   "dependencies": {
