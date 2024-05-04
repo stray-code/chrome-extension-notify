@@ -36,9 +36,9 @@ export const ScheduleModal = ({ form, onSave, opened, close }: Props) => {
         <Stack>
           <Checkbox.Group label="曜日" {...form.getInputProps("daysOfWeek")}>
             <Group>
-              {days.map((day, index) => (
+              {days.map((day) => (
                 <Checkbox
-                  key={index}
+                  key={day.value}
                   value={day.value}
                   label={day.label}
                   styles={(theme) => ({

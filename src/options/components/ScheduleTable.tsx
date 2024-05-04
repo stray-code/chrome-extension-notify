@@ -17,12 +17,12 @@ export const ScheduleTable = ({ mainScheduleList, update }: Props) => {
           <Table.Th>タイトル</Table.Th>
           <Table.Th>曜日</Table.Th>
           <Table.Th>時間</Table.Th>
-          <Table.Th w={0}></Table.Th>
+          <Table.Th w={0} />
         </Table.Tr>
       </Table.Thead>
       <Table.Tbody>
         {mainScheduleList.map((storageSchedule, index) => (
-          <Table.Tr key={index}>
+          <Table.Tr key={storageSchedule.id}>
             <Table.Td>
               <Text lineClamp={1} fz="sm">
                 {storageSchedule.title}

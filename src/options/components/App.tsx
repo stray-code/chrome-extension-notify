@@ -1,5 +1,5 @@
 import { Container, Paper, Stack, Text, Title } from "@mantine/core";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { AddButton, ScheduleTable } from ".";
 import type { MainSchedule, Message } from "../../types";
@@ -8,7 +8,7 @@ import { getLocalStorage, setLocalStorage } from "../../utils";
 export const App = () => {
   const [mainScheduleList, setMainScheduleList] = useState<MainSchedule[]>([]);
 
-  const getScheduleList = async () => {
+  const getScheduleList = useCallback(async () => {
     const mainScheduleList = await getLocalStorage("mainScheduleList");
 
     if (!mainScheduleList) {
@@ -16,7 +16,7 @@ export const App = () => {
     }
 
     setMainScheduleList(mainScheduleList);
-  };
+  }, []);
 
   const update = async (values: MainSchedule[]) => {
     setLocalStorage("mainScheduleList", values);
@@ -28,7 +28,7 @@ export const App = () => {
 
   useEffect(() => {
     getScheduleList();
-  }, []);
+  }, [getScheduleList]);
 
   return (
     <Container py="xl" size="sm">
