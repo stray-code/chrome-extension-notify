@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "prepare": "husky",
     "test": "vitest run",
-    "check": "biome check --apply src",
+    "lint": "biome lint .",
+    "check": "biome check --apply .",
     "tsc": "tsc --skipLibCheck --noEmit"
   },
   "lint-staged": {
