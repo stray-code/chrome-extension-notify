@@ -21,7 +21,7 @@ export const ScheduleTable = ({ mainScheduleList, update }: Props) => {
         </Table.Tr>
       </Table.Thead>
       <Table.Tbody>
-        {mainScheduleList.map((storageSchedule, index) => (
+        {mainScheduleList.map((storageSchedule) => (
           <Table.Tr key={storageSchedule.id}>
             <Table.Td>
               <Text lineClamp={1} fz="sm">
@@ -44,8 +44,8 @@ export const ScheduleTable = ({ mainScheduleList, update }: Props) => {
                   schedule={storageSchedule}
                   update={(values) => {
                     const newMainScheduleList = mainScheduleList.map(
-                      (schedule, scheduleIndex) => {
-                        if (scheduleIndex === index) {
+                      (schedule) => {
+                        if (schedule.id === values.id) {
                           return values;
                         }
 
@@ -59,7 +59,7 @@ export const ScheduleTable = ({ mainScheduleList, update }: Props) => {
                 <DestroyButton
                   destroy={() => {
                     const newMainScheduleList = mainScheduleList.filter(
-                      (_, scheduleIndex) => scheduleIndex !== index,
+                      (mainSchedule) => mainSchedule.id !== storageSchedule.id,
                     );
 
                     update(newMainScheduleList);
