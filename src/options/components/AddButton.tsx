@@ -1,5 +1,5 @@
 import { Button } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
+import { randomId, useDisclosure } from "@mantine/hooks";
 
 import { ScheduleModal } from ".";
 import type { MainSchedule } from "../../types";
@@ -16,7 +16,14 @@ export const AddButton = ({ add }: Props) => {
 
   return (
     <div>
-      <Button variant="outline" radius="xl" onClick={() => open()}>
+      <Button
+        variant="outline"
+        radius="xl"
+        onClick={() => {
+          form.setFieldValue("id", randomId());
+          open();
+        }}
+      >
         通知を追加
       </Button>
 
