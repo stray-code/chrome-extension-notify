@@ -2,7 +2,7 @@ import { Button } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
 import { ScheduleModal } from ".";
-import { MainSchedule } from "../../types";
+import type { MainSchedule } from "../../types";
 import { useScheduleForm } from "../hooks";
 
 type Props = {

@@ -1,8 +1,8 @@
+import { Container, Paper, Stack, Text, Title } from "@mantine/core";
 import { useEffect, useState } from "react";
-import { Container, Stack, Paper, Title, Text } from "@mantine/core";
 
-import { MainSchedule, Message } from "../../types";
 import { AddButton, ScheduleTable } from ".";
+import type { MainSchedule, Message } from "../../types";
 import { getLocalStorage, setLocalStorage } from "../../utils";
 
 export const App = () => {

@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, expect, it, vi } from "vitest";
 
-import { Schedule } from "../types";
 import { calcPlusDay } from ".";
+import type { Schedule } from "../types";
 
 beforeEach(() => {
   vi.useFakeTimers();

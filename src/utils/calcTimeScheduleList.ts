@@ -1,5 +1,5 @@
 import { calcPlusDay, calcTime } from ".";
-import { Schedule } from "../types";
+import type { Schedule } from "../types";
 
 export const calcTimeScheduleList = (ScheduleList: Schedule[]) => {
   const hasTimeScheduleList = ScheduleList.map((schedule) => {

@@ -1,4 +1,4 @@
-import { Schedule } from "../types";
+import type { Schedule } from "../types";
 
 export const calcTime = (schedule: Schedule, plusDay: number) => {
   const date = new Date();

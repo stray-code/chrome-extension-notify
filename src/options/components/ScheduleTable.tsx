@@ -1,8 +1,8 @@
 import { Flex, Table, Text } from "@mantine/core";
 
-import { MainSchedule } from "../../types";
-import { days, daysObject } from "../constants";
 import { DestroyButton, EditButton } from ".";
+import type { MainSchedule } from "../../types";
+import { days, daysObject } from "../constants";
 
 type Props = {
   mainScheduleList: MainSchedule[];

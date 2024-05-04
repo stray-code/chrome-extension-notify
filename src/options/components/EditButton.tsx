@@ -1,10 +1,10 @@
 import { ActionIcon } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 
-import { ScheduleModal } from ".";
-import { MainSchedule } from "../../types";
-import { useScheduleForm } from "../hooks";
 import { IconPencil } from "@tabler/icons-react";
+import { ScheduleModal } from ".";
+import type { MainSchedule } from "../../types";
+import { useScheduleForm } from "../hooks";
 
 type Props = {
   schedule: MainSchedule;

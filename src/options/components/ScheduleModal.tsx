@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Checkbox,
   Flex,
@@ -6,15 +7,14 @@ import {
   Modal,
   NativeSelect,
   Stack,
+  Text,
   TextInput,
   Textarea,
-  Text,
-  Box,
 } from "@mantine/core";
 
+import type { MainSchedule } from "../../types";
 import { days, hours, minutes } from "../constants";
-import { useScheduleForm } from "../hooks";
-import { MainSchedule } from "../../types";
+import type { useScheduleForm } from "../hooks";
 
 type Props = {
   form: ReturnType<typeof useScheduleForm>["form"];

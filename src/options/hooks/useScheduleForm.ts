@@ -1,6 +1,6 @@
 import { useForm } from "@mantine/form";
 
-import { MainSchedule } from "../../types";
+import type { MainSchedule } from "../../types";
 
 export const useScheduleForm = (
   schedule: MainSchedule = {
