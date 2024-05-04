@@ -6,9 +6,9 @@ chrome.action.onClicked.addListener(() => {
   chrome.runtime.openOptionsPage();
 });
 
-let nextSchedule: Schedule & { time: number };
-
 const createAlarm = async () => {
+  await chrome.alarms.clearAll();
+
   const mainScheduleList = await getLocalStorage("mainScheduleList");
 
   if (!mainScheduleList || mainScheduleList.length === 0) {
@@ -19,6 +19,7 @@ const createAlarm = async () => {
     return schedule.daysOfWeek.map((day) => {
       return {
         day: +day,
+        mainScheduleId: schedule.id,
         hours: +schedule.hours,
         minutes: +schedule.minutes,
         title: schedule.title,
@@ -33,30 +34,41 @@ const createAlarm = async () => {
     (a, b) => a.time - b.time,
   );
 
-  nextSchedule = sortedScheduleList[0];
+  const nextSchedule = sortedScheduleList[0];
 
-  await chrome.alarms.create("createNotifications", {
+  await chrome.alarms.create(nextSchedule.mainScheduleId, {
     when: nextSchedule.time,
   });
 };
 
-chrome.alarms.onAlarm.addListener((alarm) => {
-  if (alarm.name === "createNotifications") {
-    chrome.notifications.create({
-      type: "basic",
-      iconUrl: "img/icon128.png",
-      title: nextSchedule.title,
-      message: `${nextSchedule.message}\n${nextSchedule.hours}時${nextSchedule.minutes}分`,
-      priority: 0,
-    });
+chrome.alarms.onAlarm.addListener(async (alarm) => {
+  const mainScheduleList = await getLocalStorage("mainScheduleList");
 
-    createAlarm();
+  if (!mainScheduleList) {
+    return;
   }
+
+  const targetMainSchedule = mainScheduleList.find(
+    (mainSchedule) => mainSchedule.id === alarm.name,
+  );
+
+  if (!targetMainSchedule) {
+    return;
+  }
+
+  chrome.notifications.create({
+    type: "basic",
+    iconUrl: "img/icon128.png",
+    title: targetMainSchedule.title,
+    message: `${targetMainSchedule.message}\n${targetMainSchedule.hours}時${targetMainSchedule.minutes}分`,
+    priority: 0,
+  });
+
+  createAlarm();
 });
 
 chrome.runtime.onMessage.addListener(async (message: Message) => {
   if (message.type === "updateAlarm") {
-    await chrome.alarms.clearAll();
     createAlarm();
   }
 });
