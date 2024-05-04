@@ -36,6 +36,7 @@ const createAlarm = async () => {
 
   const nextSchedule = sortedScheduleList[0];
 
+  // 通知データをローカルストレージから取得するために、アラームのnameはidを指定する
   await chrome.alarms.create(nextSchedule.mainScheduleId, {
     when: nextSchedule.time,
   });
