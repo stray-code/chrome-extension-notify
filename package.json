@@ -11,12 +11,12 @@
     "preview": "vite preview",
     "format": "prettier -w src/",
     "prepare": "husky",
-    "test": "vitest run"
+    "test": "vitest run",
+    "check": "biome check --apply src"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "bash -c \"npm run format\"",
-      "bash -c \"npm run lint:fix\""
+      "bash -c \"npm run check\""
     ]
   },
   "dependencies": {
