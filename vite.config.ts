@@ -6,7 +6,7 @@ const manifest = defineManifest({
   manifest_version: 3,
   name: "指定時間に通知",
   description: "指定時間に通知します。",
-  version: "1.0.0",
+  version: "1.1.0",
   icons: {
     16: "img/icon16.png",
     48: "img/icon48.png",
